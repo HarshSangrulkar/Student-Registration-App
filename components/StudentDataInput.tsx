@@ -16,8 +16,8 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
         //console.log(enteredName);
         setName(enteredName);
     }
-    const ageInputHandler = (enteredAge: number) => {
-        setAge(enteredAge);
+    const ageInputHandler = (enteredAge: string) => {
+        setAge(Number(enteredAge) || 0);
     }
     const addDataHandler = () => {
         onDataAdd(name, age);
@@ -30,7 +30,7 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
             <TextInput style={styles.input} placeholder="Full Name" value={name} onChangeText={nameInputHandler}></TextInput>
 
             <Text style={styles.label}>Age:</Text>
-            <TextInput style={styles.input} placeholder="Age" keyboardType="numeric" value={age.toString()}></TextInput>
+            <TextInput style={styles.input} placeholder="Age" keyboardType="numeric" value={age.toString()} onChangeText={ageInputHandler}></TextInput>
 
             <Text style={styles.label}>Gender:</Text>
             <View style={styles.genderContainer}>
@@ -47,7 +47,7 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
             <Text style={styles.label}>School Name:</Text>
             <TextInput style={styles.input} placeholder="School Name" ></TextInput>
 
-            <TouchableOpacity style={styles.button}><Text style={styles.btnText}>SUBMIT</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={addDataHandler}><Text style={styles.btnText}>SUBMIT</Text></TouchableOpacity>
         </View>
     );
 };

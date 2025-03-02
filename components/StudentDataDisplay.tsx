@@ -1,9 +1,14 @@
 import { Text, View } from "react-native"
 
-const StudentDataDisplay = () => {
+interface DataDisplayProps {
+    name: string,
+    age: number,
+}
+const StudentDataDisplay = ({ name, age }: DataDisplayProps) => {
     return (
         <View>
-            <Text>Student Data</Text>
+            <Text>{name}</Text>
+            <Text>{age}</Text>
         </View>
     )
 }

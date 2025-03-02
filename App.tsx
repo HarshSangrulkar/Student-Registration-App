@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import StudentDataInput from "./components/StudentDataInput";
 import StudentDataDisplay from "./components/StudentDataDisplay";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
 
 interface Data {
   name: string,
@@ -15,7 +15,12 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StudentDataInput onDataAdd={addDataHandler}></StudentDataInput>
-      <StudentDataDisplay></StudentDataDisplay>
+      <ScrollView>
+        {list.map((value, index) => (
+          <StudentDataDisplay key={index} name={value.name} age={value.age} />
+        ))}
+
+      </ScrollView>
     </SafeAreaView>
   )
 }
