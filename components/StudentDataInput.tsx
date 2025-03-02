@@ -3,7 +3,7 @@ import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-nativ
 import CheckBox from "@react-native-community/checkbox";
 
 interface DataProps {
-    onDataAdd: (name: string, age: number) => void;
+    onDataAdd: (name: string, age: number, phone: number, school: string) => void;
 }
 const StudentDataInput = ({ onDataAdd }: DataProps) => {
 
@@ -11,6 +11,8 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
 
     const [name, setName] = useState("");
     const [age, setAge] = useState(0);
+    const [phone, setPhone] = useState(0);
+    const [school, setSchool] = useState("");
 
     const nameInputHandler = (enteredName: string) => {
         //console.log(enteredName);
@@ -19,8 +21,18 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
     const ageInputHandler = (enteredAge: string) => {
         setAge(Number(enteredAge) || 0);
     }
+    const phoneInputHandler = (enteredPhone: string) => {
+        setPhone(Number(enteredPhone))
+    }
+    const schoolInputHandler = (enteredSchool: string) => {
+        setSchool(enteredSchool);
+    }
     const addDataHandler = () => {
-        onDataAdd(name, age);
+        onDataAdd(name, age, phone, school);
+        setName(""),
+            setAge(0),
+            setPhone(0),
+            setSchool("")
     }
     return (
         <View style={styles.container}>
@@ -38,14 +50,13 @@ const StudentDataInput = ({ onDataAdd }: DataProps) => {
                 <Text>Female</Text>
             </View>
 
-            <Text style={styles.label}>Mail Id:</Text>
-            <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" ></TextInput>
+
 
             <Text style={styles.label}>Contact Number:</Text>
-            <TextInput style={styles.input} placeholder="Phone Number" keyboardType="phone-pad" ></TextInput>
+            <TextInput style={styles.input} placeholder="Phone Number" keyboardType="phone-pad" value={phone.toString()} onChangeText={phoneInputHandler}></TextInput>
 
             <Text style={styles.label}>School Name:</Text>
-            <TextInput style={styles.input} placeholder="School Name" ></TextInput>
+            <TextInput style={styles.input} placeholder="School Name" value={school} onChangeText={schoolInputHandler}></TextInput>
 
             <TouchableOpacity style={styles.button} onPress={addDataHandler}><Text style={styles.btnText}>SUBMIT</Text></TouchableOpacity>
         </View>
