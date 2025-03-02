@@ -2,21 +2,35 @@ import React, { useState } from "react";
 import { Text, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 
-const StudentDataInput = () => {
+interface DataProps {
+    onDataAdd: (name: string, age: number) => void;
+}
+const StudentDataInput = ({ onDataAdd }: DataProps) => {
 
     //const [gender, setGender] = useState("");
 
+    const [name, setName] = useState("");
+    const [age, setAge] = useState(0);
 
-
+    const nameInputHandler = (enteredName: string) => {
+        //console.log(enteredName);
+        setName(enteredName);
+    }
+    const ageInputHandler = (enteredAge: number) => {
+        setAge(enteredAge);
+    }
+    const addDataHandler = () => {
+        onDataAdd(name, age);
+    }
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Student Registration</Text>
 
             <Text style={styles.label}>Name:</Text>
-            <TextInput style={styles.input} placeholder="Full Name" ></TextInput>
+            <TextInput style={styles.input} placeholder="Full Name" value={name} onChangeText={nameInputHandler}></TextInput>
 
             <Text style={styles.label}>Age:</Text>
-            <TextInput style={styles.input} placeholder="Age" ></TextInput>
+            <TextInput style={styles.input} placeholder="Age" keyboardType="numeric" value={age.toString()}></TextInput>
 
             <Text style={styles.label}>Gender:</Text>
             <View style={styles.genderContainer}>
@@ -32,6 +46,8 @@ const StudentDataInput = () => {
 
             <Text style={styles.label}>School Name:</Text>
             <TextInput style={styles.input} placeholder="School Name" ></TextInput>
+
+            <TouchableOpacity style={styles.button}><Text style={styles.btnText}>SUBMIT</Text></TouchableOpacity>
         </View>
     );
 };
@@ -67,6 +83,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         marginVertical: 10,
+    },
+
+    button: {
+        borderColor: "black",
+        padding: 5,
+        backgroundColor: "blue",
+    },
+    btnText: {
+        color: "white",
     },
 
 });
