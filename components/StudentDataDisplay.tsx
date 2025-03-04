@@ -1,20 +1,23 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View, Pressable } from "react-native"
 
 interface DataDisplayProps {
     name: string,
     age: number,
     phone: number,
     school: string,
+    id: string;
+    onDelete: (id: string) => void;
 }
-const StudentDataDisplay = ({ name, age, phone, school }: DataDisplayProps) => {
+const StudentDataDisplay = ({ name, age, phone, school, id, onDelete }: DataDisplayProps) => {
     return (
-        <View style={styles.container}>
-
-            <Text style={styles.data}>{name}</Text>
-            <Text style={styles.data}>{age}</Text>
-            <Text style={styles.data}>{phone}</Text>
-            <Text style={styles.data}>{school}</Text>
-        </View>
+        <Pressable onPress={() => onDelete(id)}>
+            <View style={styles.container}>
+                <Text style={styles.data}>{name}</Text>
+                <Text style={styles.data}>{age}</Text>
+                <Text style={styles.data}>{phone}</Text>
+                <Text style={styles.data}>{school}</Text>
+            </View>
+        </Pressable>
     )
 }
 const styles = StyleSheet.create({
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
         backgroundColor: "purple",
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-around"
+        justifyContent: "space-between"
 
     },
     data: {

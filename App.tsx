@@ -8,26 +8,31 @@ interface Data {
   age: number;
   phone: number,
   school: string,
+  id: string;
 }
 const App = () => {
   const [list, setList] = useState<Data[]>([])
   const addDataHandler = (nameParam: string, ageParam: number, phoneParam: number, schoolParam: string) => {
-    setList((prevState) => [...prevState, { name: nameParam, age: ageParam, phone: phoneParam, school: schoolParam }])
+    setList((prevState) => [...prevState, { id: Math.random().toString(), name: nameParam, age: ageParam, phone: phoneParam, school: schoolParam }])
   }
+
+  const deleteStudentHandler = (idParam: string) => {
+    setList((prevState) => prevState.filter((student) => student.id !== idParam));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StudentDataInput onDataAdd={addDataHandler}></StudentDataInput>
       <Text style={styles.txt}>Student Data</Text>
       <View style={styles.scrollContainer}>
 
-        <Text style={styles.data}>name</Text>
-        <Text style={styles.data}>age</Text>
-        <Text style={styles.data}>phone</Text>
-        <Text style={styles.data}>school</Text>
+        <Text style={styles.data}>Name</Text>
+        <Text style={styles.data}>Age</Text>
+        <Text style={styles.data}>Phone</Text>
+        <Text style={styles.data}>School</Text>
       </View>
       <ScrollView style={styles.scroll}>
-        {list.map((value, index) => (
-          <StudentDataDisplay key={index} name={value.name} age={value.age} phone={value.phone} school={value.school} />
+        {list.map((value) => (
+          <StudentDataDisplay key={value.id} id={value.id} name={value.name} age={value.age} phone={value.phone} school={value.school} onDelete={deleteStudentHandler} />
         ))}
 
       </ScrollView>
